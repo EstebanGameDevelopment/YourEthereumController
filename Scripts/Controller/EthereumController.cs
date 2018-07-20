@@ -1305,16 +1305,48 @@ namespace YourEthereumController
         System.Collections.IEnumerator RunTransaction(string _title, string _toAddress, BigInteger _weiAmount, string _privateKeyFrom, string _publicKeyFrom)
         {
             /*
-            string rpcEndpoint = "endpoint";
-            Nethereum.Web3.Accounts.Account _account = new Nethereum.Web3.Accounts.Account("privatkey");
-            web3 = new Web3(_account, rpcEndpoint);
-            _account.TransactionManager = web3.TransactionManager;
-            _account.TransactionManager.SendTransactionAsync(from: _account.Address, to: "0x8342948", amount: new HexBigInteger(100000));
-            */
-            /*
-            TransactionManager transactionManager = new TransactionManager("What is client?");
-            await transactionManager.SendTransactionAsync(new TransactionInput("title of transfer", _toAddress, _fromAddress, new BigInteger(_weiAmountToTransfer));
-            */
+public async Task<string> TransferAsync(Tokens token, string address, decimal amount)
+{
+        var tokenData = TokenRepository.Get(token);
+        if (tokenData == null)
+            throw new ArgumentException("Specified token not found");
+
+        // Connect to GETH node
+        var web3 = new Web3(Web3Uri);
+
+        // Unlocking "creator" account for 15 seconds
+        // If fault, throw
+        if (!await web3.Personal.UnlockAccount.SendRequestAsync(tokenData.CreatedByAddress,
+            tokenData.CreatorPassphrase, 15))
+            throw new UnauthorizedAccessException(
+                $"Unable to unlock account for token {tokenData.Symbol}({tokenData.Description})");
+
+        var transactionMessage = new TransferFunction()
+        {
+            FromAddress = tokenData.CreatedByAddress,
+            To = address,
+            TokenAmount = Web3.Convert.ToWei(10,8),
+            //Set our own price
+            GasPrice = Web3.Convert.ToWei(21, UnitConversion.EthUnit.Gwei)
+
+        };
+
+        var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
+
+        // this is done automatically so is not needed.
+        var estimate = await transferHandler.EstimateGasAsync(transactionMessage, tokenData.Address);
+        transactionMessage.Gas = estimate.Value;
+
+        //await web3.Eth.
+
+        var gasPrice = await web3.Eth.GasPrice.SendRequestAsync();
+
+        var transactionHash = await transferHandler.SendRequestAsync(transactionMessage, tokenData.Address);
+        //Console.WriteLine(transactionHash);
+
+        return transactionHash;
+    }
+    */
 
             // DEPLOY THE CONTRACT AND TRUE INDICATES WE WANT TO ESTIMATE THE GAS
             UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
