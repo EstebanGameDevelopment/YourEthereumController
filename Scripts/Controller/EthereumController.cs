@@ -58,10 +58,8 @@ namespace YourEthereumController
 	 */
     public class EthereumController : MonoBehaviour
     {
-        // public const string ETHERSCAN_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";   // Get your own key at: https://etherscan.io
-        // public const string INFURA_API_KEY = "YYYYYYYYYYYYYYYYY";   // Get your own key at: https://infura.io/
-        public const string ETHERSCAN_API_KEY = "8G95X2GVREXZ6F78W6IX2AC5ZP7TCNJC5P";
-        public const string INFURA_API_KEY = "CXBhdHvxnqQZgLnsQhHC";
+        public const string ETHERSCAN_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";   // Get your own key at: https://etherscan.io
+        public const string INFURA_API_KEY = "YYYYYYYYYYYYYYYYY";   // Get your own key at: https://infura.io/
 
         public const decimal ETHER_WAI_FACTOR = 1000000000000000000;
 
@@ -574,6 +572,56 @@ namespace YourEthereumController
 
         // -------------------------------------------
         /* 
+		* AddressToLabel
+		*/
+        public string AddressToLabelUpperCase(params string[] _publicKeyAddress)
+        {
+            LoadDataAddresses();
+            string labelAddresses = "";
+            string originalAddress = "";
+            for (int i = 0; i < _publicKeyAddress.Length; i++)
+            {
+                if (originalAddress.Length > 0)
+                {
+                    originalAddress += ":";
+                }
+                originalAddress += _publicKeyAddress[i];
+                bool isFound = false;
+                string valueFound = "";
+                for (int j = 0; j < m_addressesList.Keys.Count; j++)
+                {
+                    if (m_addressesList.Keys.ElementAt(j).ToUpper().Equals(_publicKeyAddress[i].ToUpper()))
+                    {
+                        isFound = true;
+                        valueFound = m_addressesList.Keys.ElementAt(j);
+                        break;
+                    }
+                }
+                if (isFound)
+                {
+                    if (labelAddresses.Length > 0)
+                    {
+                        labelAddresses += ":";
+                    }
+                    string labelAddress = "";
+                    if (m_addressesList.TryGetValue(valueFound, out labelAddress))
+                    {
+                        labelAddresses += labelAddress;
+                    }
+                }
+            }
+            if (labelAddresses.Length > 0)
+            {
+                return labelAddresses;
+            }
+            else
+            {
+                return originalAddress;
+            }
+        }
+
+        // -------------------------------------------
+        /* 
 		* LoadPrivateKeys
 		*/
         public void LoadPrivateKeys(bool _getBalance)
@@ -1010,16 +1058,16 @@ namespace YourEthereumController
                 {
                     if (transactionAmount > 0)
                     {
-                        m_inTransactionsHistory.Add(new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
+                        m_inTransactionsHistory.Insert(0, new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
                     }
                     else
                     {
                         if (transactionAmount < 0)
                         {
-                            m_outTransactionsHistory.Add(new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
+                            m_outTransactionsHistory.Insert(0, new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
                         }
                     }
-                    m_allTransactionsHistory.Add(new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
+                    m_allTransactionsHistory.Insert(0, new ItemMultiObjectEntry(transactionID, transactionDate, transactionAmount, gas, transactionMessage, transactionsAddresses));
                 }
             }
             EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_HISTORY);
