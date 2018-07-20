@@ -58,8 +58,10 @@ namespace YourEthereumController
 	 */
     public class EthereumController : MonoBehaviour
     {
-        public const string ETHERSCAN_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";   // Get your own key at: https://etherscan.io
-        public const string INFURA_API_KEY = "YYYYYYYYYYYYYYYYY";   // Get your own key at: https://infura.io/
+        // public const string ETHERSCAN_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";   // Get your own key at: https://etherscan.io
+        // public const string INFURA_API_KEY = "YYYYYYYYYYYYYYYYY";   // Get your own key at: https://infura.io/
+        public const string ETHERSCAN_API_KEY = "8G95X2GVREXZ6F78W6IX2AC5ZP7TCNJC5P";
+        public const string INFURA_API_KEY = "CXBhdHvxnqQZgLnsQhHC";
 
         public const decimal ETHER_WAI_FACTOR = 1000000000000000000;
 
@@ -988,19 +990,19 @@ namespace YourEthereumController
                 DateTime transactionDate = DateConverter.TimeStampToDateTime(double.Parse(tx["timeStamp"]));
                 string transactionMessage = "";
                 List<ItemMultiTextEntry> transactionsAddresses = new List<ItemMultiTextEntry>();
-                if (m_publicAdressCheckHistory.Equals(addressFrom.ToUpper()))
+                if (m_publicAdressCheckHistory.ToUpper().Equals(addressFrom.ToUpper()))
                 {
                     transactionAmount = -transactionAmount;
                     if (addressTo != null)
                     {
-                        transactionsAddresses.Add(new ItemMultiTextEntry(transactionAmount.ToString(), addressTo.ToUpper()));
+                        transactionsAddresses.Add(new ItemMultiTextEntry(transactionAmount.ToString(), addressTo));
                     }                    
                 }
                 else
                 {
                     if (addressFrom != null)
                     {
-                        transactionsAddresses.Add(new ItemMultiTextEntry(transactionAmount.ToString(), addressFrom.ToUpper()));
+                        transactionsAddresses.Add(new ItemMultiTextEntry(transactionAmount.ToString(), addressFrom));
                     }
                 }
 
@@ -1076,7 +1078,7 @@ namespace YourEthereumController
             // DEPLOY THE CONTRACT AND TRUE INDICATES WE WANT TO ESTIMATE THE GAS
             UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
             var transactionRequest = new TransactionSignedUnityRequest(NetworkAPI, _privateKey, _publicKey);
-            yield return transactionRequest.SignAndSendDeploymentContractTransaction(new ArrayUint256DynamicDeployment("608060405234801561001057600080fd5b506103a1806100206000396000f3006080604052600436106100615763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166341c5812081146100665780636b7a0be6146100835780636fac8ca9146100d0578063b2367047146100fd575b600080fd5b34801561007257600080fd5b50610081600435602435610112565b005b34801561008f57600080fd5b5061009b60043561023d565b6040805173ffffffffffffffffffffffffffffffffffffffff9094168452602084019290925282820152519081900360600190f35b3480156100dc57600080fd5b506100eb600435602435610285565b60408051918252519081900360200190f35b34801561010957600080fd5b506100eb6102de565b600061011c61033d565b610125846102e4565b91508160001914156102115750604080516060810182523381526020810185815291810184815260018054808201825560009190915282517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf66003909202918201805473ffffffffffffffffffffffffffffffffffffffff191673ffffffffffffffffffffffffffffffffffffffff90921691909117905592517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf7840155517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf890920191909155610237565b8260018381548110151561022157fe5b9060005260206000209060030201600201819055505b50505050565b600180548290811061024b57fe5b600091825260209091206003909102018054600182015460029092015473ffffffffffffffffffffffffffffffffffffffff909116925083565b6000806000610293856102e4565b915060001982146102d05760018054839081106102ac57fe5b9060005260206000209060030201905083816002015414156102d0578192506102d6565b60001992505b505092915050565b60015490565b600080805b60015482101561033057600180548390811061030157fe5b90600052602060002090600302019050838160010154141561032557819250610336565b6001909101906102e9565b60001992505b5050919050565b606060405190810160405280600073ffffffffffffffffffffffffffffffffffffffff168152602001600081526020016000815250905600a165627a7a72305820623e5a4475bf3a5f24ef50c1069bb311dbeed33060ec4d85484668dbfe8c53e10029"), true);
+            yield return transactionRequest.SignAndSendDeploymentContractTransaction(new ArrayUint256DynamicDeployment("608060405234801561001057600080fd5b506103a1806100206000396000f3006080604052600436106100615763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166341c5812081146100665780636b7a0be6146100835780636fac8ca9146100d0578063b2367047146100fd575b600080fd5b34801561007257600080fd5b50610081600435602435610112565b005b34801561008f57600080fd5b5061009b60043561023d565b6040805173ffffffffffffffffffffffffffffffffffffffff9094168452602084019290925282820152519081900360600190f35b3480156100dc57600080fd5b506100eb600435602435610285565b60408051918252519081900360200190f35b34801561010957600080fd5b506100eb6102de565b600061011c61033d565b610125846102e4565b91508160001914156102115750604080516060810182523381526020810185815291810184815260018054808201825560009190915282517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf66003909202918201805473ffffffffffffffffffffffffffffffffffffffff191673ffffffffffffffffffffffffffffffffffffffff90921691909117905592517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf7840155517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf890920191909155610237565b8260018381548110151561022157fe5b9060005260206000209060030201600201819055505b50505050565b600180548290811061024b57fe5b600091825260209091206003909102018054600182015460029092015473ffffffffffffffffffffffffffffffffffffffff909116925083565b6000806000610293856102e4565b915060001982146102d05760018054839081106102ac57fe5b9060005260206000209060030201905083816002015414156102d0578192506102d6565b60001992505b505092915050565b60015490565b600080805b60015482101561033057600180548390811061030157fe5b90600052602060002090600302019050838160010154141561032557819250610336565b6001909101906102e9565b60001992505b5050919050565b606060405190810160405280600073ffffffffffffffffffffffffffffffffffffffff168152602001600081526020016000815250905600a165627a7a72305820623e5a4475bf3a5f24ef50c1069bb311dbeed33060ec4d85484668dbfe8c53e10029"));
 
             if (transactionRequest.Exception != null)
             {
@@ -1293,186 +1295,50 @@ namespace YourEthereumController
             StartCoroutine(RunTransaction(_title, _toAddress, ToWei(_amount), _privateKey, GetPublicKey(_privateKey)));
         }
 
-        private string m_privateKeyFromTransaction;
-        private string m_publicKeyFromTransaction;
-        private string m_toAddressTransaction;
-        private BigInteger m_weiAmountTransaction;
-
         // -------------------------------------------
         /* 
 		* ThreadRunTransaction
 		*/
         System.Collections.IEnumerator RunTransaction(string _title, string _toAddress, BigInteger _weiAmount, string _privateKeyFrom, string _publicKeyFrom)
         {
-            /*
-public async Task<string> TransferAsync(Tokens token, string address, decimal amount)
-{
-        var tokenData = TokenRepository.Get(token);
-        if (tokenData == null)
-            throw new ArgumentException("Specified token not found");
+            // PREPARE TRANSFER
+            var ethTransfer = new EthTransferUnityRequest(NetworkAPI, _privateKeyFrom, _publicKeyFrom);
 
-        // Connect to GETH node
-        var web3 = new Web3(Web3Uri);
+            // SEND TRANSFER TO
+            yield return ethTransfer.TransferEther(_toAddress, FromWei(_weiAmount));
 
-        // Unlocking "creator" account for 15 seconds
-        // If fault, throw
-        if (!await web3.Personal.UnlockAccount.SendRequestAsync(tokenData.CreatedByAddress,
-            tokenData.CreatorPassphrase, 15))
-            throw new UnauthorizedAccessException(
-                $"Unable to unlock account for token {tokenData.Symbol}({tokenData.Description})");
-
-        var transactionMessage = new TransferFunction()
-        {
-            FromAddress = tokenData.CreatedByAddress,
-            To = address,
-            TokenAmount = Web3.Convert.ToWei(10,8),
-            //Set our own price
-            GasPrice = Web3.Convert.ToWei(21, UnitConversion.EthUnit.Gwei)
-
-        };
-
-        var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
-
-        // this is done automatically so is not needed.
-        var estimate = await transferHandler.EstimateGasAsync(transactionMessage, tokenData.Address);
-        transactionMessage.Gas = estimate.Value;
-
-        //await web3.Eth.
-
-        var gasPrice = await web3.Eth.GasPrice.SendRequestAsync();
-
-        var transactionHash = await transferHandler.SendRequestAsync(transactionMessage, tokenData.Address);
-        //Console.WriteLine(transactionHash);
-
-        return transactionHash;
-    }
-    */
-
-            // DEPLOY THE CONTRACT AND TRUE INDICATES WE WANT TO ESTIMATE THE GAS
-            UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
-            var transactionRequest = new TransactionSignedUnityRequest(NetworkAPI, _privateKeyFrom, _publicKeyFrom);
-            yield return transactionRequest.SignAndSendDeploymentContractTransaction(new ArrayUint256DynamicDeployment("608060405234801561001057600080fd5b50610237806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663fb4da5b78114610045575b600080fd5b60408051602060046024803582810135601f81018590048502860185019096528585526100ac95833573ffffffffffffffffffffffffffffffffffffffff169536956044949193909101919081908401838280828437509497506100ae9650505050505050565b005b600034116100bb57600080fd5b60405173ffffffffffffffffffffffffffffffffffffffff8316903480156108fc02916000818181858888f193505050501580156100fd573d6000803e3d6000fd5b507fd8b698ac671a4f14720b5e36de4daa40f05f109182b33b75e09276a122bb653233833484604051808573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200183815260200180602001828103825283818151815260200191508051906020019080838360005b838110156101ca5781810151838201526020016101b2565b50505050905090810190601f1680156101f75780820380516001836020036101000a031916815260200191505b509550505050505060405180910390a150505600a165627a7a7230582070197fbf1f256b8a4c155d8d29e61f7889b8234c35d257d78d21fa9a7f9ae8490029"), true);
-
-            if (transactionRequest.Exception != null)
+            if (ethTransfer.Exception != null)
             {
-                Debug.LogError("---------------ERROR DEPLOYING THE CONTRACT");
-                Debug.Log(transactionRequest.Exception.Message);
-                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, false, transactionRequest.Exception.Message);
+                Debug.Log(ethTransfer.Exception.Message);
+#if DEBUG_MODE_DISPLAY_LOG
+                Utilities.DebugLogError("-------------Payment Error: " + ethTransfer.Exception.Message);
+#endif
+                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, false, ethTransfer.Exception.Message);
                 yield break;
             }
 
-            var transactionHash = transactionRequest.Result;
+            var transactionHash = ethTransfer.Result;
+
 #if DEBUG_MODE_DISPLAY_LOG
-            Utilities.DebugLogError("+++++++++++++++transactionHash=" + transactionHash);
+            Utilities.DebugLogError("++++++++++++++TRANSFER SUCCESS transaction hash: " + transactionHash.ToString());
+#endif
+            m_stepMining = 0;
+            EthereumEventController.Instance.DispatchEthereumEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION);
+            
+            // Create a poll to get the receipt when mined
+            var transactionReceiptPolling = new TransactionReceiptPollingRequest(NetworkAPI);
+            yield return transactionReceiptPolling.PollForReceipt(transactionHash, 2);
+
+            m_stepMining = -1;
+
+#if DEBUG_MODE_DISPLAY_LOG
+            Utilities.DebugLogError("++++++++++++++Transaction mined");
 #endif
 
-            // GET LASTEST TRANSACTION NUMBER TO DEFINE A NONCE THE IS GREATER THAN THE PREVIOUS ONE PERFORMED BY THE ACCOUNT
-            UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.calculate.nonce"));
-            BigInteger nonceLastTransaction = new BigInteger(1000);
-            var counterTransactions = new EthGetTransactionByHashUnityRequest(NetworkAPI);
-            yield return counterTransactions.SendRequest(transactionHash);
-            if (counterTransactions.Exception == null)
-            {
-                if (counterTransactions.Result != null)
-                {
-                    nonceLastTransaction = counterTransactions.Result.Nonce.Value;
-                    nonceLastTransaction += new BigInteger(1);
-#if DEBUG_MODE_DISPLAY_LOG
-                    Utilities.DebugLogError("+++++++++++++++NEXT nonceLastTransaction=" + nonceLastTransaction);
-#endif
-                }
-            }
-            else
-            {
-                Debug.LogError("---------------ERROR RETRIEVING THE LAST TRANSACTION COUNT NUMBER FOR THE NONCE");
-                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, false, counterTransactions.Exception.Message);
-                yield break;
-            }
-
-            if (m_contractIDPayment.Length == 0)
-            {
-                // REQUEST FOR THE CONTRACT ADDRESS MINED
-                m_stepMining = 0;
-                UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.mining.transaction", m_stepMining));
-                EthereumEventController.Instance.DelayEthereumEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, 2);
-                var transactionReceiptPolling = new TransactionReceiptPollingRequest(NetworkAPI);
-                yield return transactionReceiptPolling.PollForReceipt(transactionHash, 2);
-                if (transactionReceiptPolling.Exception == null)
-                {
-                    m_stepMining = -1;
-                    m_contractIDPayment = transactionReceiptPolling.Result.ContractAddress;
-#if DEBUG_MODE_DISPLAY_LOG
-                    Utilities.DebugLogError("+++++++++++++++ContractAddress=" + m_contractIDPayment);
-#endif
-                }
-                else
-                {
-                    Debug.LogError("---------------ERROR CREATING THE CONTRACT ADDRESS");
-                    EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, false, transactionReceiptPolling.Exception.Message);
-                    yield break;
-                }
-
-                PlayerPrefs.SetString(CodeNetwork + ETHEREUM_CONTRACT_ID_PAYMENT, m_contractIDPayment);
-            }
-            else
-            {
-                Debug.LogError("++++++++++++USING ALREADY CREATED CONTRACT NUMBER="+ m_contractIDPayment);
-            }
-
-            // CREATE CONTRACT
-            UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.sign.send.transaction"));
-
-            if (m_paymentContractService == null)
-            {
-                m_paymentContractService = new PaymentContractService(m_contractIDPayment);
-            }
-
-            // CREATE THE TRANSACTION INPUT
-            m_privateKeyFromTransaction = _privateKeyFrom;
-            m_publicKeyFromTransaction = _publicKeyFrom;
-            m_toAddressTransaction = _toAddress;
-            m_titleTransaction = _title;
-            m_weiAmountTransaction = _weiAmount;
-            m_nonceLastTransaction = nonceLastTransaction;
-
-            m_runningPaymentProcess = true;
-
-            CommsHTTPConstants.GetEthereumRequestGasPrice(EtherscanAPI, ETHERSCAN_API_KEY);
+            // RETRIEVED BALANCE
+            EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, true, transactionHash);
         }
 
-        // -------------------------------------------
-        /* 
-		* RunTransactionEnd
-		*/
-        System.Collections.IEnumerator RunTransactionEnd(BigInteger _gasEstimation)
-        {
-#if DEBUG_MODE_DISPLAY_LOG
-            Utilities.DebugLogError("++++++++++++++Payment gas estimation: " + _gasEstimation.ToString());
-#endif
-
-            var transactionInput = m_paymentContractService.CreatePayTransactionInput(m_publicKeyFromTransaction, m_toAddressTransaction, m_titleTransaction, new HexBigInteger(_gasEstimation), new HexBigInteger(m_weiAmountTransaction));
-            transactionInput.Nonce = new HexBigInteger(m_nonceLastTransaction);
-
-            // SEND AND WAIT
-            var transactionSignedRequest = new TransactionSignedUnityRequest(NetworkAPI, m_privateKeyFromTransaction, m_toAddressTransaction);
-            yield return transactionSignedRequest.SignAndSendTransaction(transactionInput);
-            if (transactionSignedRequest.Exception == null)
-            {
-                //get transaction receipt
-#if DEBUG_MODE_DISPLAY_LOG
-                Utilities.DebugLogError("++++++++++++++Payment submitted m_contractIDPayment: " + m_contractIDPayment);
-                Utilities.DebugLogError("++++++++++++++Payment submitted tx: " + transactionSignedRequest.Result);
-#endif
-                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, true, transactionSignedRequest.Result);
-            }
-            else
-            {
-#if DEBUG_MODE_DISPLAY_LOG
-                Utilities.DebugLogError("-------------Payment Error: " + transactionSignedRequest.Exception.Message);
-#endif
-                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, false, transactionSignedRequest.Exception.Message);
-            }
-        }
 
         // -------------------------------------------
         /* 
@@ -1607,11 +1473,6 @@ public async Task<string> TransferAsync(Tokens token, string address, decimal am
             {
                 JSONNode jsonGasPriceHex = JSON.Parse((string)_list[0]);
                 HexBigInteger gasPriceHex = new HexBigInteger(jsonGasPriceHex["result"]);
-                if (m_runningPaymentProcess)
-                {
-                    HexBigInteger amountTransfer = new HexBigInteger(m_weiAmountTransaction);
-                    CommsHTTPConstants.GetEthereumRequestGasEstimation(EtherscanAPI, ETHERSCAN_API_KEY, m_toAddressTransaction, amountTransfer.Value.ToString(), gasPriceHex.Value.ToString(), (new HexBigInteger(0xffffff)).Value.ToString());
-                }
                 if (m_runningSigningProcess)
                 {                    
                     CommsHTTPConstants.GetEthereumRequestGasEstimation(EtherscanAPI, ETHERSCAN_API_KEY, m_publicKeySigningData, new HexBigInteger(0).Value.ToString(), gasPriceHex.Value.ToString(), new HexBigInteger(0xffffff).Value.ToString());
@@ -1621,11 +1482,6 @@ public async Task<string> TransferAsync(Tokens token, string address, decimal am
             {
                 JSONNode jsonGasPriceHex = JSON.Parse((string)_list[0]);
                 HexBigInteger gasEstimationHex = new HexBigInteger(jsonGasPriceHex["result"]);
-                if (m_runningPaymentProcess)
-                {
-                    m_runningPaymentProcess = false;
-                    StartCoroutine(RunTransactionEnd(gasEstimationHex.Value * 3));
-                }
                 if (m_runningSigningProcess)
                 {
                     m_runningSigningProcess = false;
