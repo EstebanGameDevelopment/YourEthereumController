@@ -292,7 +292,7 @@ namespace YourEthereumController
 		*/
 		private void CheckBalanceOriginReal()
 		{
-			EthereumController.Instance.GetBalancePrivateKey(false, PRIVATE_KEY_TOTAL[m_indexPrivateKeyAddresToCheckBalance], EthereumController.EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET);
+			EthereumController.Instance.GetBalancePrivateKey(true, PRIVATE_KEY_TOTAL[m_indexPrivateKeyAddresToCheckBalance], EthereumController.EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET);
 		}
 
 		private string m_publicKeyAddresToCheckHistory;
@@ -387,6 +387,7 @@ namespace YourEthereumController
             }
             if (_nameEvent == EVENT_BASICMANAGER_RUN_TRANSACTION)
             {
+                AddLog("++++STARTING TRANSACTION");
                 EthereumController.Instance.Pay(m_privateKeyOrigin, m_publicKeyDestination, m_titleOfTransferTransaction, m_amountToTransferTransaction);
             }
             if (_nameEvent == EthereumController.EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED)

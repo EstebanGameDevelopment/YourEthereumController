@@ -1352,6 +1352,8 @@ namespace YourEthereumController
             // PREPARE TRANSFER
             var ethTransfer = new EthTransferUnityRequest(NetworkAPI, _privateKeyFrom, _publicKeyFrom);
 
+            UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
+
             // SEND TRANSFER TO
             yield return ethTransfer.TransferEther(_toAddress, FromWei(_weiAmount));
 
