@@ -39,7 +39,10 @@ namespace YourEthereumManager
         {
             int dataHashCode = _data.GetHashCode();
             int urlHashCode = _url.GetHashCode();
+
+#if DEBUG_MODE_DISPLAY_LOG
             Debug.LogError("++REGISTER++ HASCODE TO REGISTER IN THE CONTRACT FOR URL["+ _url + "::" + urlHashCode + "] IS ["+ dataHashCode + "]");
+#endif
 
             var function = GetFunctionSignDocument();
             return function.CreateTransactionInput(_addressFrom, _gas, _valueAmount, urlHashCode, dataHashCode);
@@ -58,7 +61,10 @@ namespace YourEthereumManager
         {
             int hashCode = _data.GetHashCode();
             int urlHashCode = _url.GetHashCode();
+
+#if DEBUG_MODE_DISPLAY_LOG
             Debug.LogError("**VERIFICATION** HASCODE TO VERIFY IN THE CONTRACT FOR URL[" + _url + "::" + urlHashCode + "] IS [" + hashCode + "]");
+#endif
 
             var function = GetFunctionVerifyDocument();
             return function.CreateCallInput(urlHashCode, hashCode);

@@ -1513,7 +1513,9 @@ namespace YourEthereumController
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST)
             {
+#if DEBUG_MODE_DISPLAY_LOG
                 Debug.LogError("EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST=" + _list[0]);
+#endif
                 JSONNode jsonTransactionHistory = JSON.Parse((string)_list[0]);
                 GetSummaryAccount(jsonTransactionHistory["result"]);
             }

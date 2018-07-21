@@ -462,14 +462,14 @@
     <es>Enviar Código QR</es>
   </text>
 
-  <text id="screen.ethereum.enter.bitcoins">
-    <en>Add Bitcoins</en>
-    <es>Ingresar Bitcoins</es>
+  <text id="screen.ethereum.enter.ethereum">
+    <en>Add Ethereum</en>
+    <es>Ingresar Ethereum</es>
   </text>
 
-  <text id="screen.ethereum.withdraw.bitcoins">
-    <en>Withdraw Bitcoins</en>
-    <es>Retirar Bitcoins</es>
+  <text id="screen.ethereum.withdraw.ethereum">
+    <en>Withdraw Ethereum</en>
+    <es>Retirar Ethereum</es>
   </text>
 
   <text id="screen.enter.email.address">
