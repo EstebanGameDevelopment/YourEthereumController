@@ -1,5 +1,4 @@
-﻿using Nethereum.Hex.HexTypes;
-using System.Numerics;
+﻿using System.Numerics;
 using UnityEngine;
 using YourCommonTools;
 

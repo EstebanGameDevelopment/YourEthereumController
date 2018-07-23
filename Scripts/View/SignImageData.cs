@@ -104,7 +104,7 @@ namespace YourEthereumController
                 if (m_originImageToSign>=0)
                 {
                     string hashSpriteOrigin = Utilities.ComputeHashCode(Utilities.GetBytesPNG(MyImages[m_originImageToSign]));
-                    EthereumController.Instance.SignTextData("TestSignedImage", hashSpriteOrigin, PRIVATE_ROOT_KEY);
+                    EthereumController.Instance.SignTextData("TestSignedImage", hashSpriteOrigin, PRIVATE_ROOT_KEY, 2);
                 }
             }
             string originImageToSign = GUI.TextField(new Rect(new Vector2(10 + ((Screen.width - 20) / 2), yGlobalPosition), new Vector2(2 * fontSize, 2 * fontSize)), m_originImageToSign.ToString());
@@ -130,7 +130,7 @@ namespace YourEthereumController
                 if (m_targetImageToTest >= 0)
                 {
                     string hashSpriteTarget = Utilities.ComputeHashCode(Utilities.GetBytesPNG(MyImages[m_targetImageToTest]));
-                    EthereumController.Instance.VerifySignedData(m_textContractID, "TestSignedImage", hashSpriteTarget);
+                    EthereumController.Instance.VerifySignedData(m_textContractID, "TestSignedImage", hashSpriteTarget, 2);
                 }
             }
             string targetImageToSign = GUI.TextField(new Rect(new Vector2(10 + ((Screen.width - 20) / 2), yGlobalPosition), new Vector2(2 * fontSize, 2 * fontSize)), m_targetImageToTest.ToString());

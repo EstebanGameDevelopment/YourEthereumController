@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Nethereum.Signer;
+#if ENABLE_ETHEREUM
+    using Nethereum.Signer;
+#endif
 
 namespace YourEthereumController
 {
@@ -65,6 +67,7 @@ namespace YourEthereumController
 			// GENERATE NEW KEY
 			if (GUI.Button(new Rect(new Vector2(10, yGlobalPosition), new Vector2(Screen.width - 20, 4 * fontSize)), "Create free new address on ++" + EthereumController.Instance.NetworkAPI + "++ Network"))
 			{
+#if ENABLE_ETHEREUM
                 EthECKey ecKey = EthECKey.GenerateKey();
                 string privateKey = ecKey.GetPrivateKey();
 
@@ -75,6 +78,7 @@ namespace YourEthereumController
 				AddLog("" + privateKey);
 				AddLog("PUBLIC KEY:");
 				AddLog("" + ecKey.GetPublicAddress());
+#endif
 			}
 			yGlobalPosition += 4.2f * fontSize;
 

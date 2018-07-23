@@ -2,17 +2,19 @@ using UnityEngine;
 using System;
 using System.Linq;
 using YourCommonTools;
-using Nethereum.JsonRpc.UnityClient;
 using System.Collections.Generic;
 using YourEthereumManager;
-using Nethereum.Signer;
-using Nethereum.RPC.Eth.DTOs;
 using System.Numerics;
-using Nethereum.Hex.HexTypes;
+#if ENABLE_ETHEREUM
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Contracts.CQS;
+using Newtonsoft.Json;
+using Nethereum.JsonRpc.UnityClient;
+using Nethereum.Signer;
+using Nethereum.Hex.HexTypes;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
-using Newtonsoft.Json;
+#endif
 
 namespace YourEthereumController
 {
@@ -24,8 +26,9 @@ namespace YourEthereumController
 			Array.Copy(data, index, result, 0, length);
 			return result;
 		}
-	}
+    }
 
+#if ENABLE_ETHEREUM
     public class ArrayUint256DynamicDeployment : ContractDeploymentMessage
     {
         public static string BYTECODE = "608060405234801561001057600080fd5b50610127806100206000396000f300608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416634b04bc0481146043575b600080fd5b348015604e57600080fd5b50605560a3565b60408051602080825283518183015283519192839290830191858101910280838360005b83811015608f5781810151838201526020016079565b505050509050019250505060405180910390f35b6040805160028082526060808301845292602083019080388339019050509050600181600081518110151560d357fe5b6020908102909101015280516002908290600190811060ee57fe5b60209081029091010152905600a165627a7a72305820aa3f79a3ff9e580c10090fb0e8830490f2acbd918c76c8488c40bdaf1c9180800029";
@@ -45,6 +48,7 @@ namespace YourEthereumController
         [Parameter("uint256[]", "result", 1)]
         public List<BigInteger> Result { get; set; }
     }
+#endif
 
     /******************************************
 	 * 
@@ -194,11 +198,13 @@ namespace YourEthereumController
 
         private int m_stepMining = 0;
 
+#if ENABLE_ETHEREUM
         private PaymentContractService m_paymentContractService = null;
         private string m_contractIDPayment = "";
 
         private SignDocumentContractService m_signDocumentContractService = null;
         private string m_contractIDSignedDocument = "";
+#endif
 
         private bool m_runningSigningProcess = false;
         private bool m_runningPaymentProcess = false;
@@ -347,7 +353,6 @@ namespace YourEthereumController
         {
             if (m_initialized)
             {
-                EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.1f);
                 return;
             }
             m_initialized = true;
@@ -366,11 +371,14 @@ namespace YourEthereumController
                 m_isMainNetwork = (_list[0] == OPTION_NETWORK_MAIN);
             }
             EthereumEventController.Instance.EthereumEvent += new EthereumEventHandler(OnEthereumEvent);
+            BasicSystemEventController.Instance.BasicSystemEvent += new BasicSystemEventHandler(OnBasicSystemEvent);
 
             m_currentCurrency = PlayerPrefs.GetString(CodeNetwork + ETHEREUM_DEFAULT_CURRENCY, CODE_DOLLAR);
 
+#if ENABLE_ETHEREUM
             m_contractIDPayment = PlayerPrefs.GetString(CodeNetwork + ETHEREUM_CONTRACT_ID_PAYMENT, "");
             m_contractIDSignedDocument = PlayerPrefs.GetString(CodeNetwork + ETHEREUM_CONTRACT_ID_SIGNED_DATA, "");
+#endif
 
             CommsHTTPConstants.GetEthereumExchangeRatesTable();
         }
@@ -382,6 +390,7 @@ namespace YourEthereumController
         public void Destroy()
         {
             EthereumEventController.Instance.EthereumEvent -= OnEthereumEvent;
+            BasicSystemEventController.Instance.BasicSystemEvent -= OnBasicSystemEvent;
             Destroy(_instance.gameObject);
             _instance = null;
         }
@@ -810,6 +819,7 @@ namespace YourEthereumController
 		 */
         public bool ValidatePrivateKey(string _privateKey, string _nameEvent)
         {
+#if ENABLE_ETHEREUM
             if (_privateKey == null) return false;
             if (_privateKey == "") return false;
             if (_privateKey == "null") return false;
@@ -830,6 +840,9 @@ namespace YourEthereumController
 #endif
             }
             return false;
+#else
+            return false;
+#endif
         }
 
         // -------------------------------------------
@@ -855,6 +868,7 @@ namespace YourEthereumController
 		*/
         public string GetPublicKey(string _privateKey)
         {
+#if ENABLE_ETHEREUM
             try
             {
                 EthECKey privateKey = new EthECKey(_privateKey);
@@ -870,8 +884,12 @@ namespace YourEthereumController
 #endif
             }
             return "";
+#else
+            return "";
+#endif
         }
 
+#if ENABLE_ETHEREUM
         // -------------------------------------------
         /* 
 		* ToWei
@@ -891,6 +909,7 @@ namespace YourEthereumController
             decimal ether = (decimal)_wai / ETHER_WAI_FACTOR;
             return ether;
         }
+#endif
 
         // -------------------------------------------
         /* 
@@ -922,6 +941,7 @@ namespace YourEthereumController
         */
         public System.Collections.IEnumerator ThreadGetBalancePrivateKey(string _baseURL, string _privateKey, string _nameEvent)
         {
+#if ENABLE_ETHEREUM
             EthECKey privateKey = new EthECKey(_privateKey);
             string publicAddress = privateKey.GetPublicAddress();
             var balanceRequest = new EthGetBalanceUnityRequest(_baseURL);
@@ -945,6 +965,9 @@ namespace YourEthereumController
                 Debug.LogError("+++++++++++++++ThreadCheckBalance::blockNumberRequest.Exception: " + balanceRequest.Exception.ToString());
 #endif
             }
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
@@ -978,6 +1001,7 @@ namespace YourEthereumController
         */
         public System.Collections.IEnumerator ThreadGetBalancePublicKey(string _baseURL, string _publicKey, string _nameEvent)
         {
+#if ENABLE_ETHEREUM
             var balanceRequest = new EthGetBalanceUnityRequest(_baseURL);
             yield return balanceRequest.SendRequest(_publicKey, BlockParameter.CreateLatest());
             if (balanceRequest.Exception == null)
@@ -999,6 +1023,9 @@ namespace YourEthereumController
                 Debug.LogError("ThreadCheckBalance::blockNumberRequest.Exception: " + balanceRequest.Exception.ToString());
 #endif
             }
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
@@ -1106,8 +1133,9 @@ namespace YourEthereumController
 		/* 
 		* SignTextData
 		*/
-		public void SignTextData(string _url, string _data, string _currentPrivateKey)
+		public void SignTextData(string _url, string _data, string _currentPrivateKey, int _sizeData)
 		{
+            m_resultSigningProccess = new object[_sizeData];
             StartCoroutine(RunSignDataDocument(_url, _data, _currentPrivateKey, GetPublicKey(_currentPrivateKey)));
 		}
 
@@ -1115,7 +1143,9 @@ namespace YourEthereumController
         private string m_publicKeySigningData;
         private string m_urlSigningData;
         private string m_dataSigningData;
+#if ENABLE_ETHEREUM
         private BigInteger m_nonceLastTransaction;
+#endif
 
         // -------------------------------------------
         /* 
@@ -1123,6 +1153,7 @@ namespace YourEthereumController
 		*/
         System.Collections.IEnumerator RunSignDataDocument(string _url, string _data, string _privateKey, string _publicKey)
         {
+#if ENABLE_ETHEREUM
             // DEPLOY THE CONTRACT AND TRUE INDICATES WE WANT TO ESTIMATE THE GAS
             UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
             var transactionRequest = new TransactionSignedUnityRequest(NetworkAPI, _privateKey, _publicKey);
@@ -1212,14 +1243,23 @@ namespace YourEthereumController
             m_runningSigningProcess = true;
 
             CommsHTTPConstants.GetEthereumRequestGasPrice(EtherscanAPI, ETHERSCAN_API_KEY);
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
         /* 
 		* RunSignDataDocumentEnd
 		*/
-        System.Collections.IEnumerator RunSignDataDocumentEnd(BigInteger _currentGasTransaction)
+        System.Collections.IEnumerator RunSignDataDocumentEnd(
+#if ENABLE_ETHEREUM
+                BigInteger _currentGasTransaction
+#endif
+            )
         {
+#if ENABLE_ETHEREUM
+
 #if DEBUG_MODE_DISPLAY_LOG
             Utilities.DebugLogError("++++++++++++++Signing gas estimation: " + _currentGasTransaction.ToString());
 #endif
@@ -1247,6 +1287,9 @@ namespace YourEthereumController
 #endif
                 EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE, false, transactionSignedDocumentRequest.Exception.Message);
             }
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
@@ -1255,6 +1298,7 @@ namespace YourEthereumController
 		*/
         System.Collections.IEnumerator RunCountItemsSigned(string _contractID)
         {
+#if ENABLE_ETHEREUM
             SignDocumentContractService countDocumentContractService = new SignDocumentContractService(_contractID);
 
 #if DEBUG_MODE_DISPLAY_LOG
@@ -1278,14 +1322,18 @@ namespace YourEthereumController
             {
                 Debug.LogError("-------------------ERROR CHECKING THE NUMBER OF SIGNED ITEMS: " + requestCountSignedItems.Exception.Message);
             }
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
         /* 
 		* VerifySignedData
 		*/
-        public void VerifySignedData(string _contractID, string _url, string _data)
+        public void VerifySignedData(string _contractID, string _url, string _data, int _sizeData)
         {
+            m_resultSigningProccess = new object[_sizeData];
             StartCoroutine(RunVerifyDataDocument(_contractID, _url, _data));
         }
 
@@ -1295,11 +1343,12 @@ namespace YourEthereumController
 		*/
         System.Collections.IEnumerator RunVerifyDataDocument(string _contractID, string _url, string _data)
         {
+#if ENABLE_ETHEREUM
             SignDocumentContractService verifyDocumentContractService = new SignDocumentContractService(_contractID);
 
 #if DEBUG_MODE_DISPLAY_LOG
-            Utilities.DebugLogError("++++++++++++Contract ID to use for verification: " + _contractID);
-            Debug.LogError("++++++++++++Contract ID to use for verification: " + _contractID);
+            Utilities.DebugLogError("++++++++++++Contract ID to use for verification: " + _contractID + ":: FOR DATA="+ _data);
+            Debug.LogError("++++++++++++Contract ID to use for verification: " + _contractID + ":: FOR DATA=" + _data);
 #endif
 
             var requestVerifyDataSigned = new EthCallUnityRequest(NetworkAPI);
@@ -1322,6 +1371,9 @@ namespace YourEthereumController
             {
                 EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA, false);
             }
+#else
+            yield return new WaitForSeconds(1);
+#endif
         }
 
         // -------------------------------------------
@@ -1330,6 +1382,8 @@ namespace YourEthereumController
 		*/
         private void ExecuteTransaction(string _title, decimal _amount, string _toAddress, string _privateKey)
 		{
+#if ENABLE_ETHEREUM
+
 #if DEBUG_MODE_DISPLAY_LOG
             Debug.LogError("*****************************************************************************");
             Debug.LogError("PAYMENT:");
@@ -1341,8 +1395,10 @@ namespace YourEthereumController
 #endif
 
             StartCoroutine(RunTransaction(_title, _toAddress, ToWei(_amount), _privateKey, GetPublicKey(_privateKey)));
+#endif
         }
 
+#if ENABLE_ETHEREUM
         // -------------------------------------------
         /* 
 		* ThreadRunTransaction
@@ -1388,7 +1444,7 @@ namespace YourEthereumController
             // RETRIEVED BALANCE
             EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, true, transactionHash);
         }
-
+#endif
 
         // -------------------------------------------
         /* 
@@ -1436,9 +1492,39 @@ namespace YourEthereumController
             ExecuteTransaction(m_titleTransaction, m_finalValueEther, m_publicKeyTarget, m_currentPrivateKey);
         }
 
+        private object[] m_resultSigningProccess;
+
         // -------------------------------------------
         /* 
-        * Manager of global events
+        * Manager of basic system events
+        */
+        private void OnBasicSystemEvent(string _nameEvent, object[] _list)
+        {
+            if (_nameEvent == BasicSystemEventController.EVENT_BASICSYSTEMEVENT_REQUEST_SIGN_TEXT_DATA)
+            {
+                SignTextData((string)_list[0], (string)_list[0], (string)_list[1], _list.Length - 1);
+                int counter = 1;
+                for (int i = 2; i < _list.Length; i++)
+                {
+                    m_resultSigningProccess[counter] = _list[i];
+                    counter++;
+                }
+            }
+            if (_nameEvent == BasicSystemEventController.EVENT_BASICSYSTEMEVENT_REQUEST_VERIFY_TEXT_DATA)
+            {
+                VerifySignedData((string)_list[1], (string)_list[0], (string)_list[0], _list.Length - 1);
+                int counter = 1;
+                for (int i = 3; i < _list.Length; i++)
+                {
+                    m_resultSigningProccess[counter] = _list[i];
+                    counter++;
+                }
+            }
+        }
+
+        // -------------------------------------------
+        /* 
+        * Manager of Ethereum events
         */
         private void OnEthereumEvent(string _nameEvent, params object[] _list)
 		{
@@ -1510,8 +1596,15 @@ namespace YourEthereumController
             {
                 if ((bool)_list[0])
                 {
-                    StartCoroutine(RunCountItemsSigned((string)_list[1]));
+                    m_resultSigningProccess[0] = (string)_list[1]; // CONTRACT ID
+                    BasicSystemEventController.Instance.DispatchBasicSystemEvent(BasicSystemEventController.EVENT_BASICSYSTEMEVENT_RESPONSE_SIGNED_TEXT_DATA, m_resultSigningProccess);
+                    // StartCoroutine(RunCountItemsSigned((string)_list[1]));
                 }
+            }
+            if (_nameEvent == EthereumController.EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA)
+            {
+                m_resultSigningProccess[0] = (bool)_list[0]; // VERIFICATION RESULT
+                BasicSystemEventController.Instance.DispatchBasicSystemEvent(BasicSystemEventController.EVENT_BASICSYSTEMEVENT_RESPONSE_VERIFICATION_TEXT_DATA, m_resultSigningProccess);
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST)
             {
@@ -1524,21 +1617,25 @@ namespace YourEthereumController
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_GET_GAS_PRICE)
             {
                 JSONNode jsonGasPriceHex = JSON.Parse((string)_list[0]);
+#if ENABLE_ETHEREUM
                 HexBigInteger gasPriceHex = new HexBigInteger(jsonGasPriceHex["result"]);
                 if (m_runningSigningProcess)
                 {                    
                     CommsHTTPConstants.GetEthereumRequestGasEstimation(EtherscanAPI, ETHERSCAN_API_KEY, m_publicKeySigningData, new HexBigInteger(0).Value.ToString(), gasPriceHex.Value.ToString(), new HexBigInteger(0xffffff).Value.ToString());
                 }
+#endif
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_GET_ESTIMATION_GAS)
             {
                 JSONNode jsonGasPriceHex = JSON.Parse((string)_list[0]);
+#if ENABLE_ETHEREUM
                 HexBigInteger gasEstimationHex = new HexBigInteger(jsonGasPriceHex["result"]);
                 if (m_runningSigningProcess)
                 {
                     m_runningSigningProcess = false;
                     StartCoroutine(RunSignDataDocumentEnd(gasEstimationHex.Value * 10));
                 }
+#endif
             }
         }
     }

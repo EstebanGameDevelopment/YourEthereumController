@@ -115,7 +115,7 @@ namespace YourEthereumController
                 }
                 else
                 {
-                    EthereumController.Instance.SignTextData(m_textData, m_textData, PRIVATE_ROOT_KEY);
+                    EthereumController.Instance.SignTextData(m_textData, m_textData, PRIVATE_ROOT_KEY, 2);
                 }
             }
             yGlobalPosition += 2.2f * fontSize;
@@ -149,7 +149,7 @@ namespace YourEthereumController
                 }
                 else
                 {
-                    EthereumController.Instance.VerifySignedData(m_textContractID, m_textData, m_textSigned);
+                    EthereumController.Instance.VerifySignedData(m_textContractID, m_textData, m_textSigned, 2);
                 }
             }
             yGlobalPosition += 2.2f * fontSize;

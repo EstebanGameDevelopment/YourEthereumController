@@ -1,4 +1,5 @@
-﻿using Nethereum.ABI.Encoders;
+﻿#if ENABLE_ETHEREUM
+using Nethereum.ABI.Encoders;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
@@ -99,3 +100,4 @@ namespace YourEthereumManager
 
     }
 }
+#endif
