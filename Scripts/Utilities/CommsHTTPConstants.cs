@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using UnityEngine;
+﻿using UnityEngine;
 using YourCommonTools;
 
 namespace YourEthereumController
