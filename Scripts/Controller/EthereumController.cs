@@ -137,7 +137,7 @@ namespace YourEthereumController
         public const string CODE_BITCOIN = "BTC";
         public const string CODE_ETHEREUM = "ETH";
 
-        public static readonly string[] CURRENCY_CODE = { CODE_DOLLAR, CODE_EURO, CODE_YEN, CODE_RUBLO, CODE_POUND, CODE_BITCOIN };
+        public static readonly string[] CURRENCY_CODE = { CODE_DOLLAR, CODE_EURO, CODE_YEN, CODE_RUBLO, CODE_POUND, CODE_BITCOIN, CODE_ETHEREUM };
 
         public const string OPTION_NETWORK_COOKIE = "OPTION_NETWORK_COOKIE";
 
