@@ -1448,7 +1448,7 @@ namespace YourEthereumController
         }
 #endif
 
-
+#if ENABLE_ETHEREUM
         // -------------------------------------------
         /* 
 		* SignTextData
@@ -1469,6 +1469,7 @@ namespace YourEthereumController
             ECKey privateKey = new ECKey(Encoding.UTF8.GetBytes(_currentPublicKey), false);
             return privateKey.Verify(BitConverter.GetBytes(_dataOriginal.GetHashCode()), new ECDSASignature(Encoding.UTF8.GetBytes(_dataSigned)));
         }
+#endif
 
         // -------------------------------------------
         /* 
