@@ -25,7 +25,7 @@ namespace YourEthereumController
 
 		public string Build(params object[] _list)
 		{
-			string phpFile = "^https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR,GBP,RUB,JPY^";
+			string phpFile = "^https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR,GBP,RUB,JPY,ETH^";
 #if !ENABLE_MY_OFUSCATION || UNITY_EDITOR
 			phpFile = phpFile.Replace("^", "");
 #endif

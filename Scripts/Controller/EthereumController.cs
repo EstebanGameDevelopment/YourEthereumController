@@ -4,10 +4,8 @@ using System.Linq;
 using YourCommonTools;
 using System.Collections.Generic;
 using YourEthereumManager;
-using System.Numerics;
-using System.Text;
-using Nethereum.Signer.Crypto;
 #if ENABLE_ETHEREUM
+using System.Numerics;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Contracts.CQS;
 using Newtonsoft.Json;
@@ -139,7 +137,7 @@ namespace YourEthereumController
         public const string CODE_BITCOIN = "BTC";
         public const string CODE_ETHEREUM = "ETH";
 
-        public static readonly string[] CURRENCY_CODE = { CODE_DOLLAR, CODE_EURO, CODE_YEN, CODE_RUBLO, CODE_POUND, CODE_BITCOIN };
+        public static readonly string[] CURRENCY_CODE = { CODE_DOLLAR, CODE_EURO, CODE_YEN, CODE_RUBLO, CODE_POUND, CODE_BITCOIN, CODE_ETHEREUM };
 
         public const string OPTION_NETWORK_COOKIE = "OPTION_NETWORK_COOKIE";
 
@@ -1447,28 +1445,6 @@ namespace YourEthereumController
             EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE, true, transactionHash);
         }
 #endif
-
-        // -------------------------------------------
-        /* 
-		* SignTextData
-		*/
-        public string SignTextData(string _data, string _currentPrivateKey)
-        {
-            ECKey privateKey = new ECKey(Encoding.UTF8.GetBytes(_currentPrivateKey), true);
-            ECDSASignature signedData = privateKey.Sign(BitConverter.GetBytes(_data.GetHashCode()));
-            return signedData.ToString();
-        }
-
-        // -------------------------------------------
-        /* 
-		* VerifySignedData
-		*/
-        public bool VerifySignedData(string _dataOriginal, string _dataSigned, string _currentPublicKey)
-        {
-            ECKey privateKey = new ECKey(Encoding.UTF8.GetBytes(_currentPublicKey), false);
-            return privateKey.Verify(BitConverter.GetBytes(_dataOriginal.GetHashCode()), new ECDSASignature(Encoding.UTF8.GetBytes(_dataSigned)));
-        }
-
 
         // -------------------------------------------
         /* 
