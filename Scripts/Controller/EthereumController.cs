@@ -4,7 +4,6 @@ using System.Linq;
 using YourCommonTools;
 using System.Collections.Generic;
 using YourEthereumManager;
-using Nethereum.Signer.Crypto;
 using System.Text;
 #if ENABLE_ETHEREUM
 using System.Numerics;
@@ -16,6 +15,7 @@ using Nethereum.Signer;
 using Nethereum.Hex.HexTypes;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
+using Nethereum.Signer.Crypto;
 #endif
 
 namespace YourEthereumController
