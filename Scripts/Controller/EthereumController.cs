@@ -1455,9 +1455,10 @@ namespace YourEthereumController
 		*/
         public string SignTextData(string _data, string _currentPrivateKey)
         {
-            ECKey privateKey = new ECKey(Encoding.UTF8.GetBytes(_currentPrivateKey), true);
-            ECDSASignature signedData = privateKey.Sign(BitConverter.GetBytes(_data.GetHashCode()));
-            return signedData.ToString();
+            MessageSigner signer = new MessageSigner();
+            string output = signer.HashAndSign(_data, _currentPrivateKey);
+
+            return output;
         }
 
         // -------------------------------------------
@@ -1466,8 +1467,10 @@ namespace YourEthereumController
 		*/
         public bool VerifySignedData(string _dataOriginal, string _dataSigned, string _currentPublicKey)
         {
-            ECKey privateKey = new ECKey(Encoding.UTF8.GetBytes(_currentPublicKey), false);
-            return privateKey.Verify(BitConverter.GetBytes(_dataOriginal.GetHashCode()), new ECDSASignature(Encoding.UTF8.GetBytes(_dataSigned)));
+            MessageSigner signer = new MessageSigner();
+            string publicKey = signer.HashAndEcRecover(_dataOriginal, _dataSigned);
+
+            return publicKey == _currentPublicKey;
         }
 #endif
 
