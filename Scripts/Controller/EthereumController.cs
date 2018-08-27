@@ -1448,17 +1448,20 @@ namespace YourEthereumController
         }
 #endif
 
-#if ENABLE_ETHEREUM
+
         // -------------------------------------------
         /* 
 		* SignTextData
 		*/
         public string SignTextData(string _data, string _currentPrivateKey)
         {
+#if ENABLE_ETHEREUM
             MessageSigner signer = new MessageSigner();
             string output = signer.HashAndSign(_data, _currentPrivateKey);
 
             return output;
+#endif
+            return "";
         }
 
         // -------------------------------------------
@@ -1467,17 +1470,20 @@ namespace YourEthereumController
 		*/
         public bool VerifySignedData(string _dataOriginal, string _dataSigned, string _currentPublicKey)
         {
+#if ENABLE_ETHEREUM
             MessageSigner signer = new MessageSigner();
             string publicKey = signer.HashAndEcRecover(_dataOriginal, _dataSigned);
 
             return publicKey == _currentPublicKey;
-        }
 #endif
+            return false;
+        }
+
 
         // -------------------------------------------
         /* 
-		* GetBalanceForCurrency
-		*/
+        * GetBalanceForCurrency
+        */
         public decimal GetBalanceForCurrency(string _currency)
 		{
 			decimal currencyForBalance = -1;
