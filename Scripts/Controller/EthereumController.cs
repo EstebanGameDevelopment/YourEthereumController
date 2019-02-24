@@ -3,9 +3,9 @@ using System;
 using System.Linq;
 using YourCommonTools;
 using System.Collections.Generic;
-using YourEthereumManager;
 using System.Text;
 #if ENABLE_ETHEREUM
+using YourEthereumManager;
 using System.Numerics;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Contracts.CQS;
