@@ -305,6 +305,20 @@ namespace YourEthereumController
                 }
             }
         }
+        public BigInteger NetworkChainID
+        {
+            get
+            {
+                if (m_isMainNetwork)
+                {
+                    return new BigInteger((int)Chain.ClassicMainNet);
+                }
+                else
+                {
+                    return new BigInteger((int)Chain.ClassicTestNet);
+                }
+            }
+        }
         public string CurrentPrivateKey
         {
             get { return m_currentPrivateKey; }
@@ -364,7 +378,7 @@ namespace YourEthereumController
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
 #if DEBUG_MODE_DISPLAY_LOG
-            Debug.Log("BitCoinController Initialized");
+            Debug.Log("EthereumController Initialized");
 #endif
             string currentNetworkUsed = PlayerPrefs.GetString(OPTION_NETWORK_COOKIE, OPTION_NETWORK_TEST);
             m_isMainNetwork = (currentNetworkUsed == OPTION_NETWORK_MAIN);
@@ -1158,7 +1172,7 @@ namespace YourEthereumController
 #if ENABLE_ETHEREUM
             // DEPLOY THE CONTRACT AND TRUE INDICATES WE WANT TO ESTIMATE THE GAS
             UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
-            var transactionRequest = new TransactionSignedUnityRequest(NetworkAPI, _privateKey, _publicKey);
+            var transactionRequest = new TransactionSignedUnityRequest(NetworkAPI, _privateKey);
             yield return transactionRequest.SignAndSendDeploymentContractTransaction(new ArrayUint256DynamicDeployment("608060405234801561001057600080fd5b506103a1806100206000396000f3006080604052600436106100615763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166341c5812081146100665780636b7a0be6146100835780636fac8ca9146100d0578063b2367047146100fd575b600080fd5b34801561007257600080fd5b50610081600435602435610112565b005b34801561008f57600080fd5b5061009b60043561023d565b6040805173ffffffffffffffffffffffffffffffffffffffff9094168452602084019290925282820152519081900360600190f35b3480156100dc57600080fd5b506100eb600435602435610285565b60408051918252519081900360200190f35b34801561010957600080fd5b506100eb6102de565b600061011c61033d565b610125846102e4565b91508160001914156102115750604080516060810182523381526020810185815291810184815260018054808201825560009190915282517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf66003909202918201805473ffffffffffffffffffffffffffffffffffffffff191673ffffffffffffffffffffffffffffffffffffffff90921691909117905592517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf7840155517fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf890920191909155610237565b8260018381548110151561022157fe5b9060005260206000209060030201600201819055505b50505050565b600180548290811061024b57fe5b600091825260209091206003909102018054600182015460029092015473ffffffffffffffffffffffffffffffffffffffff909116925083565b6000806000610293856102e4565b915060001982146102d05760018054839081106102ac57fe5b9060005260206000209060030201905083816002015414156102d0578192506102d6565b60001992505b505092915050565b60015490565b600080805b60015482101561033057600180548390811061030157fe5b90600052602060002090600302019050838160010154141561032557819250610336565b6001909101906102e9565b60001992505b5050919050565b606060405190810160405280600073ffffffffffffffffffffffffffffffffffffffff168152602001600081526020016000815250905600a165627a7a72305820623e5a4475bf3a5f24ef50c1069bb311dbeed33060ec4d85484668dbfe8c53e10029"));
 
             if (transactionRequest.Exception != null)
@@ -1270,7 +1284,7 @@ namespace YourEthereumController
             transactionInput.Nonce = new HexBigInteger(m_nonceLastTransaction);
 
             // SEND AND WAIT
-            var transactionSignedDocumentRequest = new TransactionSignedUnityRequest(NetworkAPI, m_privateKeySigningData, m_publicKeySigningData);
+            var transactionSignedDocumentRequest = new TransactionSignedUnityRequest(NetworkAPI, m_privateKeySigningData);
             yield return transactionSignedDocumentRequest.SignAndSendTransaction(transactionInput);
             if (transactionSignedDocumentRequest.Exception == null)
             {
@@ -1408,7 +1422,7 @@ namespace YourEthereumController
         System.Collections.IEnumerator RunTransaction(string _title, string _toAddress, BigInteger _weiAmount, string _privateKeyFrom, string _publicKeyFrom)
         {
             // PREPARE TRANSFER
-            var ethTransfer = new EthTransferUnityRequest(NetworkAPI, _privateKeyFrom, _publicKeyFrom);
+            var ethTransfer = new EthTransferUnityRequest(NetworkAPI, _privateKeyFrom, NetworkChainID);
 
             UIEventController.Instance.DispatchUIEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION, LanguageController.Instance.GetText("screen.ethereum.send.deploy.contract"));
 
@@ -1601,7 +1615,7 @@ namespace YourEthereumController
 					Debug.Log("ETHEREUM IN[" + currencyCode + "] IS[" + (m_balanceWallet * exchangeValue) + "]");
 #endif
 				}
-                EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED);
+                EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.2f);
             }
             if (_nameEvent == ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION)
             {
