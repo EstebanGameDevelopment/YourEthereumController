@@ -305,6 +305,7 @@ namespace YourEthereumController
                 }
             }
         }
+#if ENABLE_ETHEREUM
         public BigInteger NetworkChainID
         {
             get
@@ -319,6 +320,7 @@ namespace YourEthereumController
                 }
             }
         }
+#endif
         public string CurrentPrivateKey
         {
             get { return m_currentPrivateKey; }
