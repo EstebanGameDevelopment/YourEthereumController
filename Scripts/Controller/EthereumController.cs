@@ -1601,23 +1601,26 @@ namespace YourEthereumController
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE)
 			{
-				m_walletBalanceCurrencies.Clear();
-				m_currenciesExchange.Clear();
-				JSONNode jsonExchangeTable = JSON.Parse((string)_list[0]);
+                if (m_walletBalanceCurrencies.Count == 0)
+                {
+                    m_walletBalanceCurrencies.Clear();
+                    m_currenciesExchange.Clear();
+                    JSONNode jsonExchangeTable = JSON.Parse((string)_list[0]);
 #if DEBUG_MODE_DISPLAY_LOG
 				Debug.Log("ETHEREUM IN WALLET[" + m_balanceWallet + "]");
 #endif
-				for (int i = 0; i < CURRENCY_CODE.Length; i++)
-				{
-					string currencyCode = CURRENCY_CODE[i];
-					decimal exchangeValue = decimal.Parse(jsonExchangeTable[currencyCode]);
-					m_walletBalanceCurrencies.Add(currencyCode, m_balanceWallet * exchangeValue);
-					m_currenciesExchange.Add(currencyCode, exchangeValue);
+                    for (int i = 0; i < CURRENCY_CODE.Length; i++)
+                    {
+                        string currencyCode = CURRENCY_CODE[i];
+                        decimal exchangeValue = decimal.Parse(jsonExchangeTable[currencyCode]);
+                        m_walletBalanceCurrencies.Add(currencyCode, m_balanceWallet * exchangeValue);
+                        m_currenciesExchange.Add(currencyCode, exchangeValue);
 #if DEBUG_MODE_DISPLAY_LOG
 					Debug.Log("ETHEREUM IN[" + currencyCode + "] IS[" + (m_balanceWallet * exchangeValue) + "]");
 #endif
-				}
-                EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.2f);
+                    }
+                    EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.2f);
+                }
             }
             if (_nameEvent == ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION)
             {
