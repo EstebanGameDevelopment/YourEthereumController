@@ -28,6 +28,8 @@ namespace YourEthereumController
 		// ----------------------------------------------
 		private const string PRIVATE_ROOT_KEY = "0x1c6c36b151745ed7c93a6e353d0919a98a1b365474136723a743b8d0fa8144f6";
 		private const string PUBLICK_ROOT_KEY = "0x80d1F26a9eaAc1110645EDCCE85e9295F8f49c29";
+
+        private const bool MODE_CONTRACT = true;
 		
 		// ----------------------------------------------
 		// PRIVATE MEMBERS
@@ -115,7 +117,14 @@ namespace YourEthereumController
                 }
                 else
                 {
-                    EthereumController.Instance.SignTextData(m_textData, m_textData, PRIVATE_ROOT_KEY, 2);
+                    if (MODE_CONTRACT)
+                    {
+                        EthereumController.Instance.SignTextData(m_textData, m_textData, PRIVATE_ROOT_KEY, 2);
+                    }
+                    else
+                    {
+                        m_textSigned = EthereumController.Instance.SignTextData(m_textData, PRIVATE_ROOT_KEY);
+                    }                    
                 }
             }
             yGlobalPosition += 2.2f * fontSize;
@@ -149,7 +158,21 @@ namespace YourEthereumController
                 }
                 else
                 {
-                    EthereumController.Instance.VerifySignedData(m_textContractID, m_textData, m_textSigned, 2);
+                    if (MODE_CONTRACT)
+                    {
+                        EthereumController.Instance.VerifySignedData(m_textContractID, m_textData, m_textSigned, 2);
+                    }
+                    else
+                    {
+                        if (EthereumController.Instance.VerifySignedData(m_textData, m_textSigned, PUBLICK_ROOT_KEY))
+                        {
+                            AddLog("DATA SUCCESSFULLY VERIFIED++++");
+                        }
+                        else
+                        {
+                            AddLog("DATA FAILED TO VERIFY----");
+                        }
+                    }
                 }
             }
             yGlobalPosition += 2.2f * fontSize;

@@ -28,6 +28,8 @@ namespace YourEthereumController
         private const string PRIVATE_ROOT_KEY = "0x1c6c36b151745ed7c93a6e353d0919a98a1b365474136723a743b8d0fa8144f6";
         private const string PUBLICK_ROOT_KEY = "0x80d1F26a9eaAc1110645EDCCE85e9295F8f49c29";
 
+        private const bool MODE_CONTRACT = true;
+
         // ----------------------------------------------
         // PRIVATE MEMBERS
         // ----------------------------------------------
@@ -104,7 +106,14 @@ namespace YourEthereumController
                 if (m_originImageToSign>=0)
                 {
                     string hashSpriteOrigin = Utilities.ComputeHashCode(Utilities.GetBytesPNG(MyImages[m_originImageToSign]));
-                    EthereumController.Instance.SignTextData("TestSignedImage", hashSpriteOrigin, PRIVATE_ROOT_KEY, 2);
+                    if (MODE_CONTRACT)
+                    {
+                        EthereumController.Instance.SignTextData("TestSignedImage", hashSpriteOrigin, PRIVATE_ROOT_KEY, 2);
+                    }
+                    else
+                    {
+                        m_textContractID = EthereumController.Instance.SignTextData(hashSpriteOrigin, PRIVATE_ROOT_KEY);
+                    }                        
                 }
             }
             string originImageToSign = GUI.TextField(new Rect(new Vector2(10 + ((Screen.width - 20) / 2), yGlobalPosition), new Vector2(2 * fontSize, 2 * fontSize)), m_originImageToSign.ToString());
@@ -130,7 +139,21 @@ namespace YourEthereumController
                 if (m_targetImageToTest >= 0)
                 {
                     string hashSpriteTarget = Utilities.ComputeHashCode(Utilities.GetBytesPNG(MyImages[m_targetImageToTest]));
-                    EthereumController.Instance.VerifySignedData(m_textContractID, "TestSignedImage", hashSpriteTarget, 2);
+                    if (MODE_CONTRACT)
+                    {
+                        EthereumController.Instance.VerifySignedData(m_textContractID, "TestSignedImage", hashSpriteTarget, 2);
+                    }
+                    else
+                    {
+                        if (EthereumController.Instance.VerifySignedData(hashSpriteTarget, m_textContractID, PUBLICK_ROOT_KEY))
+                        {
+                            AddLog("IMAGE SUCCESSFULLY VERIFIED++++");
+                        }
+                        else
+                        {
+                            AddLog("IMAGE FAILED TO VERIFY----");
+                        }
+                    }
                 }
             }
             string targetImageToSign = GUI.TextField(new Rect(new Vector2(10 + ((Screen.width - 20) / 2), yGlobalPosition), new Vector2(2 * fontSize, 2 * fontSize)), m_targetImageToTest.ToString());
