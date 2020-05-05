@@ -312,11 +312,11 @@ namespace YourEthereumController
             {
                 if (m_isMainNetwork)
                 {
-                    return new BigInteger((int)Chain.ClassicMainNet);
+                    return new BigInteger((int)Chain.MainNet);
                 }
                 else
                 {
-                    return new BigInteger((int)Chain.ClassicTestNet);
+                    return new BigInteger((int)Chain.Rinkeby);
                 }
             }
         }
