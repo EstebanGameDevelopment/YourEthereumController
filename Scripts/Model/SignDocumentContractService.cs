@@ -42,7 +42,7 @@ namespace YourEthereumManager
             int urlHashCode = _url.GetHashCode();
 
 #if DEBUG_MODE_DISPLAY_LOG
-            Debug.LogError("++REGISTER++ HASCODE TO REGISTER IN THE CONTRACT FOR URL["+ _url + "::" + urlHashCode + "] IS ["+ dataHashCode + "]");
+            Debug.LogError("++REGISTER++ HASCODE TO REGISTER IN THE CONTRACT FOR URL["+ _url + "::" + urlHashCode + "] IS ["+ _data +  "::" +  dataHashCode + "]");
 #endif
 
             var function = GetFunctionSignDocument();

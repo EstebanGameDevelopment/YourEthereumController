@@ -1488,6 +1488,10 @@ namespace YourEthereumController
         {
 #if ENABLE_ETHEREUM
             MessageSigner signer = new MessageSigner();
+
+#if DEBUG_MODE_DISPLAY_LOG
+            Debug.LogError("VerifySignedData::_dataOriginal["+ _dataOriginal + "]::_dataSigned["+ _dataSigned + "]");
+#endif
             string publicKey = signer.HashAndEcRecover(_dataOriginal, _dataSigned);
 
             return publicKey == _currentPublicKey;
