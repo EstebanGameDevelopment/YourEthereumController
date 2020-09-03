@@ -21,13 +21,13 @@ using Nethereum.Signer.Crypto;
 namespace YourEthereumController
 {
     public static class ArrayExtensions
-	{
-		public static T[] SubArray<T>(this T[] data, int index, int length)
-		{
-			var result = new T[length];
-			Array.Copy(data, index, result, 0, length);
-			return result;
-		}
+    {
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            var result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
     }
 
 #if ENABLE_ETHEREUM
@@ -72,47 +72,47 @@ namespace YourEthereumController
         // ----------------------------------------------
         // EVENTS
         // ----------------------------------------------	
-        public const string EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET             = "EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET";
-        public const string EVENT_ETHEREUMCONTROLLER_PAYMENTS_DONE              = "EVENT_ETHEREUMCONTROLLER_PAYMENTS_DONE";
-        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE           = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE";
-        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED      = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED";
-        public const string EVENT_ETHEREUMCONTROLLER_EXCHANGE_DATA              = "EVENT_ETHEREUMCONTROLLER_EXCHANGE_DATA";
-        public const string EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE        = "EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE";
-        public const string EVENT_ETHEREUMCONTROLLER_JSON_FEE_TABLE             = "EVENT_ETHEREUMCONTROLLER_JSON_FEE_TABLE";
-        public const string EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED         = "EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED";
-        public const string EVENT_ETHEREUMCONTROLLER_ALL_DATA_INITIALIZED       = "EVENT_ETHEREUMCONTROLLER_ALL_DATA_INITIALIZED";
-        public const string EVENT_ETHEREUMCONTROLLER_SELECTED_PRIVATE_KEY       = "EVENT_ETHEREUMCONTROLLER_SELECTED_PRIVATE_KEY";
-        public const string EVENT_ETHEREUMCONTROLLER_SELECTED_PUBLIC_KEY        = "EVENT_ETHEREUMCONTROLLER_SELECTED_PUBLIC_KEY";
-        public const string EVENT_ETHEREUMCONTROLLER_NEW_CURRENCY_SELECTED      = "EVENT_ETHEREUMCONTROLLER_NEW_CURRENCY_SELECTED";
-        public const string EVENT_ETHEREUMCONTROLLER_CURRENCY_CHANGED           = "EVENT_ETHEREUMCONTROLLER_CURRENCY_CHANGED";
-        public const string EVENT_ETHEREUMCONTROLLER_UPDATE_ACCOUNT_DATA        = "EVENT_ETHEREUMCONTROLLER_UPDATE_ACCOUNT_DATA";
-        public const string EVENT_ETHEREUMCONTROLLER_PUBLIC_KEY_SELECTED        = "EVENT_ETHEREUMCONTROLLER_PUBLIC_KEY_SELECTED";
-        public const string EVENT_ETHEREUMCONTROLLER_USER_DATA_UPDATED          = "EVENT_ETHEREUMCONTROLLER_USER_DATA_UPDATED";
+        public const string EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET = "EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET";
+        public const string EVENT_ETHEREUMCONTROLLER_PAYMENTS_DONE = "EVENT_ETHEREUMCONTROLLER_PAYMENTS_DONE";
+        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE";
+        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED";
+        public const string EVENT_ETHEREUMCONTROLLER_EXCHANGE_DATA = "EVENT_ETHEREUMCONTROLLER_EXCHANGE_DATA";
+        public const string EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE = "EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE";
+        public const string EVENT_ETHEREUMCONTROLLER_JSON_FEE_TABLE = "EVENT_ETHEREUMCONTROLLER_JSON_FEE_TABLE";
+        public const string EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED = "EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED";
+        public const string EVENT_ETHEREUMCONTROLLER_ALL_DATA_INITIALIZED = "EVENT_ETHEREUMCONTROLLER_ALL_DATA_INITIALIZED";
+        public const string EVENT_ETHEREUMCONTROLLER_SELECTED_PRIVATE_KEY = "EVENT_ETHEREUMCONTROLLER_SELECTED_PRIVATE_KEY";
+        public const string EVENT_ETHEREUMCONTROLLER_SELECTED_PUBLIC_KEY = "EVENT_ETHEREUMCONTROLLER_SELECTED_PUBLIC_KEY";
+        public const string EVENT_ETHEREUMCONTROLLER_NEW_CURRENCY_SELECTED = "EVENT_ETHEREUMCONTROLLER_NEW_CURRENCY_SELECTED";
+        public const string EVENT_ETHEREUMCONTROLLER_CURRENCY_CHANGED = "EVENT_ETHEREUMCONTROLLER_CURRENCY_CHANGED";
+        public const string EVENT_ETHEREUMCONTROLLER_UPDATE_ACCOUNT_DATA = "EVENT_ETHEREUMCONTROLLER_UPDATE_ACCOUNT_DATA";
+        public const string EVENT_ETHEREUMCONTROLLER_PUBLIC_KEY_SELECTED = "EVENT_ETHEREUMCONTROLLER_PUBLIC_KEY_SELECTED";
+        public const string EVENT_ETHEREUMCONTROLLER_USER_DATA_UPDATED = "EVENT_ETHEREUMCONTROLLER_USER_DATA_UPDATED";
         public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_USER_ACKNOWLEDGE = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_USER_ACKNOWLEDGE";
 
-        public const string EVENT_ETHEREUMCONTROLLER_GET_BLOCK_NUMBER           = "EVENT_ETHEREUMCONTROLLER_GET_BLOCK_NUMBER";
-        public const string EVENT_ETHEREUMCONTROLLER_VALIDATE_PUBLIC_KEY        = "EVENT_ETHEREUMCONTROLLER_VALIDATE_PUBLIC_KEY";
-        public const string EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY      = "EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY";
-        public const string EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE       = "EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE";
-        public const string EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA   = "EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA";
-        public const string EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST      = "EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST";
-        public const string EVENT_ETHEREUMCONTROLLER_GET_GAS_PRICE              = "EVENT_ETHEREUMCONTROLLER_GET_GAS_PRICE";
-        public const string EVENT_ETHEREUMCONTROLLER_GET_ESTIMATION_GAS         = "EVENT_ETHEREUMCONTROLLER_GET_ESTIMATION_GAS";
-        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_HISTORY        = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_HISTORY";
+        public const string EVENT_ETHEREUMCONTROLLER_GET_BLOCK_NUMBER = "EVENT_ETHEREUMCONTROLLER_GET_BLOCK_NUMBER";
+        public const string EVENT_ETHEREUMCONTROLLER_VALIDATE_PUBLIC_KEY = "EVENT_ETHEREUMCONTROLLER_VALIDATE_PUBLIC_KEY";
+        public const string EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY = "EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY";
+        public const string EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE = "EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE";
+        public const string EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA = "EVENT_ETHEREUMCONTROLLER_VERIFICATION_SIGNED_DATA";
+        public const string EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST = "EVENT_ETHEREUMCONTROLLER_GET_TRANSACTIONS_LIST";
+        public const string EVENT_ETHEREUMCONTROLLER_GET_GAS_PRICE = "EVENT_ETHEREUMCONTROLLER_GET_GAS_PRICE";
+        public const string EVENT_ETHEREUMCONTROLLER_GET_ESTIMATION_GAS = "EVENT_ETHEREUMCONTROLLER_GET_ESTIMATION_GAS";
+        public const string EVENT_ETHEREUMCONTROLLER_TRANSACTION_HISTORY = "EVENT_ETHEREUMCONTROLLER_TRANSACTION_HISTORY";
 
         public const string COUROUTINE_REQUEST_VALIDATE_PUBLIC_KEY = "COUROUTINE_REQUEST_VALIDATE_PUBLIC_KEY";
 
         public const string NETWORK_TEST = "TEST_";
         public const string NETWORK_MAIN = "MAIN_";
 
-        public const string ETHEREUM_PRIVATE_KEYS           = "ETHEREUM_PRIVATE_KEYS";
-        public const string ETHEREUM_DEFAULT_CURRENCY       = "ETHEREUM_DEFAULT_CURRENCY";
-        public const string ETHEREUM_PRIVATE_KEY_SELECTED   = "ETHEREUM_PRIVATE_KEY_SELECTED";
-        public const string ETHEREUM_ADDRESSES_LIST         = "ETHEREUM_ADDRESSES_LIST";
+        public const string ETHEREUM_PRIVATE_KEYS = "ETHEREUM_PRIVATE_KEYS";
+        public const string ETHEREUM_DEFAULT_CURRENCY = "ETHEREUM_DEFAULT_CURRENCY";
+        public const string ETHEREUM_PRIVATE_KEY_SELECTED = "ETHEREUM_PRIVATE_KEY_SELECTED";
+        public const string ETHEREUM_ADDRESSES_LIST = "ETHEREUM_ADDRESSES_LIST";
 
-        public const string ETHEREUM_CONTRACT_ID_PAYMENT     = "ETHEREUM_CONTRACT_ID_PAYMENT";
+        public const string ETHEREUM_CONTRACT_ID_PAYMENT = "ETHEREUM_CONTRACT_ID_PAYMENT";
         public const string ETHEREUM_CONTRACT_ID_SIGNED_DATA = "ETHEREUM_CONTRACT_ID_SIGNED_DATA";
-        
+
         public const char SEPARATOR_ITEMS = ';';
         public const char SEPARATOR_COMA = ',';
 
@@ -120,13 +120,13 @@ namespace YourEthereumController
         public const int TOTAL_SIZE_PUBLIC_KEY_ETHEREUM = 42;
 
 #if !ENABLE_MY_OFUSCATION || UNITY_EDITOR
-        public const string ENCRYPTION_KEY = "ps38NwtKl521rLyTwr4252IctREhuP26";  // CRITICAL!!! CHANGE THIS KEY TO YOUR OWN AND DO NOT SHARE IT, PLEASE!!
+        public const string ENCRYPTION_KEY = "ps38NwtKl999rYuTwr9992IctAEhuP26";  // CRITICAL!!! CHANGE THIS KEY TO YOUR OWN AND DO NOT SHARE IT, PLEASE!!
 #else
-	public const string ENCRYPTION_KEY = "^ps38NwtKl521rLyTwr4252IctREhuP26^";  // CRITICAL!!! CHANGE THIS KEY TO YOUR OWN AND DO NOT SHARE IT, PLEASE!!
+	public const string ENCRYPTION_KEY = "^ps38NwtKl999rYuTwr9992IctAEhuP26^";  // CRITICAL!!! CHANGE THIS KEY TO YOUR OWN AND DO NOT SHARE IT, PLEASE!!
 #endif
 
-        public const string BASE_URL_ADDRESS_ACCESS_ETHEREUM_NETWORK_TESTNET = "https://rinkeby.infura.io/";
-        public const string BASE_URL_ADDRESS_ACCESS_ETHEREUM_NETWORK_MAINNET = "https://mainnet.infura.io/";
+        public const string BASE_URL_ADDRESS_ACCESS_ETHEREUM_NETWORK_TESTNET = "https://rinkeby.infura.io/v3/";
+        public const string BASE_URL_ADDRESS_ACCESS_ETHEREUM_NETWORK_MAINNET = "https://mainnet.infura.io/v3/";
 
         public const string ETHERSCAN_API_ADDRESS_ACCESS_ETHEREUM_NETWORK_TESTNET = "https://rinkeby.etherscan.io/";
         public const string ETHERSCAN_API_ADDRESS_ACCESS_ETHEREUM_NETWORK_MAINNET = "https://api.etherscan.io/";
@@ -234,9 +234,11 @@ namespace YourEthereumController
         }
         public string NetworkAPI
         {
-            get { 
+            get
+            {
                 if (m_isMainNetwork)
                 {
+
                     return BASE_URL_ADDRESS_ACCESS_ETHEREUM_NETWORK_MAINNET + INFURA_API_KEY;
                 }
                 else
@@ -312,7 +314,7 @@ namespace YourEthereumController
             {
                 if (m_isMainNetwork)
                 {
-                    return new BigInteger((int)Chain.MainNet);
+                    return new BigInteger((int)Chain.ClassicMainNet);
                 }
                 else
                 {
@@ -324,7 +326,8 @@ namespace YourEthereumController
         public string CurrentPrivateKey
         {
             get { return m_currentPrivateKey; }
-            set {
+            set
+            {
                 if (m_currentPrivateKey.Length > 0) m_backupCurrentPrivateKey = "" + m_currentPrivateKey;
                 m_currentPrivateKey = value;
                 if (m_currentPrivateKey.Length != 0)
@@ -354,7 +357,9 @@ namespace YourEthereumController
         public string CurrentCurrency
         {
             get { return m_currentCurrency; }
-            set { m_currentCurrency = value;
+            set
+            {
+                m_currentCurrency = value;
                 PlayerPrefs.SetString(CodeNetwork + ETHEREUM_DEFAULT_CURRENCY, m_currentCurrency);
             }
         }
@@ -872,7 +877,8 @@ namespace YourEthereumController
             try
             {
                 GetBalancePublicKey(false, _publicKey, EVENT_ETHEREUMCONTROLLER_VALIDATE_PUBLIC_KEY);
-            } catch (Exception err)
+            }
+            catch (Exception err)
             {
 #if DEBUG_MODE_DISPLAY_LOG
                 Debug.Log("ValidatePublicKey::ERROR[" + err.Message + "]==========" + err.StackTrace);
@@ -970,7 +976,7 @@ namespace YourEthereumController
                 if (m_privateKeys.Keys.Contains(_privateKey))
                 {
                     m_privateKeys[_privateKey] = balance;
-                }                        
+                }
                 if (_nameEvent.Length > 0) EthereumEventController.Instance.DispatchEthereumEvent(_nameEvent, _privateKey, true, balance);
 #if DEBUG_MODE_DISPLAY_LOG
                 Utilities.DebugLogError("+++++++++++++++ThreadCheckBalance::_nameEvent["+ _nameEvent + "]::Balance: " + balanceRequest.Result.Value.ToString());
@@ -1051,7 +1057,7 @@ namespace YourEthereumController
 		* GetAllInformation
 		*/
         public void GetAllInformation(string _publicKeyAdress)
-		{
+        {
 #if DEBUG_MODE_DISPLAY_LOG
 			Debug.Log("GetBalance::TRYING TO GET HISTORY FOR ["+ _publicKeyAdress + "]");
 #endif
@@ -1070,7 +1076,7 @@ namespace YourEthereumController
             m_allTransactionsHistory = new List<ItemMultiObjectEntry>();
             m_inTransactionsHistory = new List<ItemMultiObjectEntry>();
             m_outTransactionsHistory = new List<ItemMultiObjectEntry>();
-            
+
             for (int i = 0; i < _history.Count; i++)
             {
                 JSONNode tx = _history[i];
@@ -1089,7 +1095,7 @@ namespace YourEthereumController
                     if (addressTo != null)
                     {
                         transactionsAddresses.Add(new ItemMultiTextEntry(transactionAmount.ToString(), addressTo));
-                    }                    
+                    }
                 }
                 else
                 {
@@ -1123,39 +1129,39 @@ namespace YourEthereumController
         * ToStringTransaction
         */
         public static string ToStringTransaction(ItemMultiObjectEntry _transaction)
-		{
-			string transactionID = (string)_transaction.Objects[0];
-			DateTime transactionDate = (DateTime)_transaction.Objects[1];
-			decimal transactionAmount = (decimal)_transaction.Objects[2];
+        {
+            string transactionID = (string)_transaction.Objects[0];
+            DateTime transactionDate = (DateTime)_transaction.Objects[1];
+            decimal transactionAmount = (decimal)_transaction.Objects[2];
             string transactionGas = (string)_transaction.Objects[3];
-			string transactionMessage = (string)_transaction.Objects[4];
-			List<ItemMultiTextEntry> transactionScriptPubKey = (List<ItemMultiTextEntry>)_transaction.Objects[5];
+            string transactionMessage = (string)_transaction.Objects[4];
+            List<ItemMultiTextEntry> transactionScriptPubKey = (List<ItemMultiTextEntry>)_transaction.Objects[5];
 
-			string addresses = "";
-			for (int i = 0; i < transactionScriptPubKey.Count; i++)
-			{
-				ItemMultiTextEntry item = transactionScriptPubKey[i];
-				if (addresses.Length > 0)
-				{
-					addresses += "::";
-				}				
+            string addresses = "";
+            for (int i = 0; i < transactionScriptPubKey.Count; i++)
+            {
+                ItemMultiTextEntry item = transactionScriptPubKey[i];
+                if (addresses.Length > 0)
+                {
+                    addresses += "::";
+                }
 
-				addresses += item.Items[1];
-			}
+                addresses += item.Items[1];
+            }
 
-			return "DATE["+transactionDate.ToString() + "];AMOUNT["+ transactionAmount + "];GAS["+ transactionGas + "];MESSAGE["+ transactionMessage + "];ADDRESSES["+ addresses + "]";
-		}
+            return "DATE[" + transactionDate.ToString() + "];AMOUNT[" + transactionAmount + "];GAS[" + transactionGas + "];MESSAGE[" + transactionMessage + "];ADDRESSES[" + addresses + "]";
+        }
 
 
-		// -------------------------------------------
-		/* 
+        // -------------------------------------------
+        /* 
 		* SignTextData
 		*/
-		public void SignTextData(string _url, string _data, string _currentPrivateKey, int _sizeData)
-		{
+        public void SignTextData(string _url, string _data, string _currentPrivateKey, int _sizeData)
+        {
             m_resultSigningProccess = new object[_sizeData];
             StartCoroutine(RunSignDataDocument(_url, _data, _currentPrivateKey, GetPublicKey(_currentPrivateKey)));
-		}
+        }
 
         private string m_privateKeySigningData;
         private string m_publicKeySigningData;
@@ -1370,10 +1376,10 @@ namespace YourEthereumController
 #endif
 
             var requestVerifyDataSigned = new EthCallUnityRequest(NetworkAPI);
-            
+
             var verifyDataSignedCallInput = verifyDocumentContractService.CreateVerifyDocumentTransactionInput(_url, _data);
             yield return requestVerifyDataSigned.SendRequest(verifyDataSignedCallInput, Nethereum.RPC.Eth.DTOs.BlockParameter.CreateLatest());
-            
+
             if (requestVerifyDataSigned.Exception == null)
             {
                 int indexHashInQueue = verifyDocumentContractService.DecodeVerifyDocument(requestVerifyDataSigned.Result);
@@ -1399,7 +1405,7 @@ namespace YourEthereumController
 		* PayExperience
 		*/
         private void ExecuteTransaction(string _title, decimal _amount, string _toAddress, string _privateKey)
-		{
+        {
 #if ENABLE_ETHEREUM
 
 #if DEBUG_MODE_DISPLAY_LOG
@@ -1448,7 +1454,7 @@ namespace YourEthereumController
 #endif
             m_stepMining = 0;
             EthereumEventController.Instance.DispatchEthereumEvent(ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION);
-            
+
             // Create a poll to get the receipt when mined
             var transactionReceiptPolling = new TransactionReceiptPollingRequest(NetworkAPI);
             yield return transactionReceiptPolling.PollForReceipt(transactionHash, 2);
@@ -1488,10 +1494,6 @@ namespace YourEthereumController
         {
 #if ENABLE_ETHEREUM
             MessageSigner signer = new MessageSigner();
-
-#if DEBUG_MODE_DISPLAY_LOG
-            Debug.LogError("VerifySignedData::_dataOriginal["+ _dataOriginal + "]::_dataSigned["+ _dataSigned + "]");
-#endif
             string publicKey = signer.HashAndEcRecover(_dataOriginal, _dataSigned);
 
             return publicKey == _currentPublicKey;
@@ -1505,27 +1507,27 @@ namespace YourEthereumController
         * GetBalanceForCurrency
         */
         public decimal GetBalanceForCurrency(string _currency)
-		{
-			decimal currencyForBalance = -1;
-			m_walletBalanceCurrencies.TryGetValue(_currency, out currencyForBalance);
-			return currencyForBalance;
-		}
+        {
+            decimal currencyForBalance = -1;
+            m_walletBalanceCurrencies.TryGetValue(_currency, out currencyForBalance);
+            return currencyForBalance;
+        }
 
-		// -------------------------------------------
-		/* 
+        // -------------------------------------------
+        /* 
 		* Main call to make the payment
 		*/
-		public void Pay(string _currentPrivateKey,  string _publicKey, string _title, decimal _finalValueEther)
-		{
-			m_titleTransaction = _title;
-			m_currentPrivateKey = _currentPrivateKey;
-			m_publicKeyTarget = _publicKey;
-			m_finalValueEther = _finalValueEther;
+        public void Pay(string _currentPrivateKey, string _publicKey, string _title, decimal _finalValueEther)
+        {
+            m_titleTransaction = _title;
+            m_currentPrivateKey = _currentPrivateKey;
+            m_publicKeyTarget = _publicKey;
+            m_finalValueEther = _finalValueEther;
 
-			// CUSTOMER HAS ENOUGH FUNDS?
-			GetBalancePrivateKey(true, m_currentPrivateKey, EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY);
+            // CUSTOMER HAS ENOUGH FUNDS?
+            GetBalancePrivateKey(true, m_currentPrivateKey, EVENT_ETHEREUMCONTROLLER_BALANCE_ENOUGH_TO_PAY);
         }
-        
+
         // -------------------------------------------
         /* 
 		* Check if the payment can be done with enough balance
@@ -1581,7 +1583,7 @@ namespace YourEthereumController
         * Manager of Ethereum events
         */
         private void OnEthereumEvent(string _nameEvent, params object[] _list)
-		{
+        {
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_BALANCE_WALLET)
             {
                 string privateKey = (string)_list[0];
@@ -1604,27 +1606,24 @@ namespace YourEthereumController
                 }
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_JSON_EXCHANGE_TABLE)
-			{
-                if (m_walletBalanceCurrencies.Count == 0)
-                {
-                    m_walletBalanceCurrencies.Clear();
-                    m_currenciesExchange.Clear();
-                    JSONNode jsonExchangeTable = JSON.Parse((string)_list[0]);
+            {
+                m_walletBalanceCurrencies.Clear();
+                m_currenciesExchange.Clear();
+                JSONNode jsonExchangeTable = JSON.Parse((string)_list[0]);
 #if DEBUG_MODE_DISPLAY_LOG
 				Debug.Log("ETHEREUM IN WALLET[" + m_balanceWallet + "]");
 #endif
-                    for (int i = 0; i < CURRENCY_CODE.Length; i++)
-                    {
-                        string currencyCode = CURRENCY_CODE[i];
-                        decimal exchangeValue = decimal.Parse(jsonExchangeTable[currencyCode]);
-                        m_walletBalanceCurrencies.Add(currencyCode, m_balanceWallet * exchangeValue);
-                        m_currenciesExchange.Add(currencyCode, exchangeValue);
+                for (int i = 0; i < CURRENCY_CODE.Length; i++)
+                {
+                    string currencyCode = CURRENCY_CODE[i];
+                    decimal exchangeValue = decimal.Parse(jsonExchangeTable[currencyCode]);
+                    m_walletBalanceCurrencies.Add(currencyCode, m_balanceWallet * exchangeValue);
+                    m_currenciesExchange.Add(currencyCode, exchangeValue);
 #if DEBUG_MODE_DISPLAY_LOG
 					Debug.Log("ETHEREUM IN[" + currencyCode + "] IS[" + (m_balanceWallet * exchangeValue) + "]");
 #endif
-                    }
-                    EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.2f);
                 }
+                EthereumEventController.Instance.DelayEthereumEvent(EVENT_ETHEREUMCONTROLLER_ALL_DATA_COLLECTED, 0.2f);
             }
             if (_nameEvent == ScreenInformationView.EVENT_SCREEN_UPDATE_TEXT_DESCRIPTION)
             {
@@ -1636,19 +1635,19 @@ namespace YourEthereumController
                 }
             }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_TRANSACTION_DONE)
-			{
-				if (!(bool)_list[0])
-				{
-					EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED, false, (string)_list[1], m_finalValueEther.ToString());
-				}
-				else
-				{
-					EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED, true, (string)_list[1], m_publicKeyTarget, m_finalValueEther.ToString());
+            {
+                if (!(bool)_list[0])
+                {
+                    EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED, false, (string)_list[1], m_finalValueEther.ToString());
+                }
+                else
+                {
+                    EthereumEventController.Instance.DispatchEthereumEvent(EVENT_ETHEREUMCONTROLLER_TRANSACTION_COMPLETED, true, (string)_list[1], m_publicKeyTarget, m_finalValueEther.ToString());
 
-					// UPDATE WALLET
-					AddPrivateKey(m_currentPrivateKey, "");
-				}
-			}
+                    // UPDATE WALLET
+                    AddPrivateKey(m_currentPrivateKey, "");
+                }
+            }
             if (_nameEvent == EVENT_ETHEREUMCONTROLLER_SIGNED_DOCUMENT_DONE)
             {
                 if ((bool)_list[0])
@@ -1677,7 +1676,7 @@ namespace YourEthereumController
 #if ENABLE_ETHEREUM
                 HexBigInteger gasPriceHex = new HexBigInteger(jsonGasPriceHex["result"]);
                 if (m_runningSigningProcess)
-                {                    
+                {
                     CommsHTTPConstants.GetEthereumRequestGasEstimation(EtherscanAPI, ETHERSCAN_API_KEY, m_publicKeySigningData, new HexBigInteger(0).Value.ToString(), gasPriceHex.Value.ToString(), new HexBigInteger(0xffffff).Value.ToString());
                 }
 #endif
